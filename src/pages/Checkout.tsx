@@ -1,6 +1,6 @@
 import { useShoppingCart } from "../context/ShoppingCartContext";
 import CartItem from "../components/CartItem";
-import { createOrder, fetchProducts, fetchOrders } from "../redux/features/actions/products";
+import { fetchProducts } from "../redux/features/actions/products";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,22 +9,18 @@ import { ToastContainer, toast } from "react-toastify";
 const Checkout = () => {
   const { closeCart, cartItems, removeFromCart } = useShoppingCart();
   const navigate = useNavigate();
-  const { products, loading, error } = useSelector((state: any) => state.products);
+  const { products } = useSelector((state: any) => state.products);
   const [isLoading, setIsLoading] = useState(false);
-
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-
+  console.log(localStorage.getItem('user'))
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
 
   const dispatch = useDispatch();
-
 
   useEffect(() => {
     if (!user.email) navigate('/login');
 
     dispatch(fetchProducts() as any);
-  }
-
-    , [dispatch]);
+  }, [dispatch, navigate, user.email]);
 
   const handleOrder = async () => {
     setIsLoading(true);
@@ -38,33 +34,13 @@ const Checkout = () => {
       }, 0),
     };
 
-    const response = await fetch(`${HOST}/orders/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.token}`,
-      },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    if (response.status === 200) {
-      toast.success("Order Placed Successfully");
-      cartItems.forEach((item) => removeFromCart(item.id));
-      user.points = user.points - data.amount;
-      localStorage.setItem("user", JSON.stringify(user));
-      setTimeout(() => {
-        navigate("/orders");
-      }
-        , 1000);
-      setIsLoading(false);
 
-    } else {
-      console.log(result.error);
-      setIsLoading(false);
-      toast.error(result.message);
-      setIsLoading(false);
-      return { error: result.error };
-    }
+
+    toast.success("Order Placed Successfully");
+    cartItems.forEach((item) => removeFromCart(item.id));
+    const updatedUser = { ...user, points: user.points - data.amount };
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
 
   };
 
@@ -79,9 +55,10 @@ const Checkout = () => {
                 <img
                   src="https://svgsilh.com/svg/151889.svg"
                   className="w-10 block pr-2"
+                  alt="points icon"
                 />
                 <div className="text-sm">
-                  You have <b>{user.points} Points</b> on yor account{" "}
+                  You have <b>{user.points} Points</b> on your account{" "}
                 </div>
               </div>
 
@@ -93,19 +70,13 @@ const Checkout = () => {
                   ))}
                 </div>
               </div>
-              {
-                isLoading ? (
-                  <button className="px-4 py-4 bg-green-600 text-white w-full mt-3 rounded shadow font-bold hover:bg-green-700">
-                    loading...
-                  </button>
-                ) : (
-                  <button onClick={() => handleOrder()} className="px-4 py-4 bg-green-600 text-white w-full mt-3 rounded shadow font-bold hover:bg-green-700">
-                    Pay
-                  </button>
-                )
-              }
-
-
+              <button
+                onClick={handleOrder}
+                className={`px-4 py-4 bg-green-600 text-white w-full mt-3 rounded shadow font-bold hover:bg-green-700 ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={isLoading}
+              >
+                {isLoading ? 'Processing...' : 'Pay'}
+              </button>
             </div>
           </div>
         </div>

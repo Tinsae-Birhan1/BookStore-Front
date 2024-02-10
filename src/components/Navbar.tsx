@@ -16,8 +16,7 @@ export default function NavigationBar() {
         </nav>
         <div>
           {user.email ? (
-            <Link to={"/orders"} className="mr-6">
-              Orders
+            <Link to={"/"} className="mr-6">
             </Link>
           ) : (
             <Link to={"/login"} className="mr-6">
