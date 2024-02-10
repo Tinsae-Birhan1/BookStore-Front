@@ -8,6 +8,9 @@ type CartItemProps = {
   quantity: number;
 };
 
+
+
+
 export default function PayItem({ id, quantity }: CartItemProps) {
   const { products } = useSelector((state: any) => state.products);
   const item = products && products.find((i: any) => i.id === id);
