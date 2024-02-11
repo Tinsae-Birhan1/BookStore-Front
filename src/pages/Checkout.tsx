@@ -1,6 +1,6 @@
-import { useShoppingCart } from "../context/ShoppingCartContext";
-import CartItem from "../components/CartItem";
-import { fetchProducts } from "../redux/features/actions/products";
+import { useShoppingCart } from "../Setting/PaymentControl";
+import CartItem from "../components/CartProduct";
+import { fetchProducts } from "../redux/Functions/actions/products";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

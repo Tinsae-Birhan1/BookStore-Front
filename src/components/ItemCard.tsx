@@ -1,6 +1,6 @@
-import { useShoppingCart } from "../context/ShoppingCartContext";
-import formatCurrency from "../utilities/formatCurrency";
-import AddCart from "./AddCart";
+import { useShoppingCart } from "../Setting/PaymentControl";
+import formatCurrency from "../utilities/Currency";
+import AddCart from "./CartControl";
 type StoreItemProps = {
   id: number;
   title: string;

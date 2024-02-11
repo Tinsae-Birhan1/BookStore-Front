@@ -1,8 +1,8 @@
-import { useShoppingCart } from "../context/ShoppingCartContext";
-import CartItem from "./CartItem";
-import StoreItem from "./StoreItem";
+import { useShoppingCart } from "../Setting/PaymentControl";
+import CartItem from "./CartProduct";
+import StoreItem from "./ItemCard";
 // import storeItems from "../data/items.json";
-import formatCurrency from "../utilities/formatCurrency";
+import formatCurrency from "../utilities/Currency";
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 type ShoppingCartProps = {

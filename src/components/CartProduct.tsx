@@ -1,6 +1,6 @@
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useShoppingCart } from "../Setting/PaymentControl";
 import { useSelector } from 'react-redux';
-import formatCurrency from "../utilities/formatCurrency";
+import formatCurrency from "../utilities/Currency";
 import { useState } from "react";
 
 type CartItemProps = {

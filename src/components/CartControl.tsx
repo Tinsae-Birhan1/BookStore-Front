@@ -1,4 +1,4 @@
-import { useShoppingCart } from "../context/ShoppingCartContext";
+import { useShoppingCart } from "../Setting/PaymentControl";
 
 type quantityProps = {
   id: number;

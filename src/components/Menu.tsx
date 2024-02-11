@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { useShoppingCart } from "../context/ShoppingCartContext";
-import ShoppingSvg from "./ShoppingSvg";
+import { useShoppingCart } from "../Setting/PaymentControl";
+import ShoppingSvg from "./CartIcon";
 
 export default function NavigationBar() {
   const { openCart, cartQuantity } = useShoppingCart();

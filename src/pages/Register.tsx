@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/features/actions/auth";
+import { login } from "../redux/Functions/actions/auth";
 
 const Register = () => {
   useEffect(() => {

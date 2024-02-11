@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
-import { login } from "../redux/features/actions/auth";
+import { login } from "../redux/Functions/actions/auth";
 import { FaSpinner } from "react-icons/fa"; // Import loading spinner icon
 
 const Login = () => {
